@@ -1,0 +1,10 @@
+{
+  "name": "ClipMsg",
+  "short_name": "ClipMsg",
+  "start_url": "/phone",
+  "display": "standalone",
+  "background_color": "#f5f1e6",
+  "theme_color": "#165c57",
+  "description": "Local-first phone-to-desktop messages with automatic clipboard copy on Windows.",
+  "icons": []
+}

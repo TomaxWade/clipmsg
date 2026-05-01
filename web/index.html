@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#165c57" />
+    <title>ClipMsg</title>
+    <link rel="manifest" href="/static/manifest.webmanifest" />
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <div class="page-noise" aria-hidden="true"></div>
+
+    <main class="shell" role="application" aria-label="ClipMsg">
+      <header class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Local clipboard bridge</div>
+          <h1>Send text from your phone and paste it instantly on your desktop.</h1>
+          <p id="subtitle">
+            Incoming phone messages are copied to the Windows clipboard automatically, so you can press
+            <strong>Ctrl+V</strong> in any app right away.
+          </p>
+        </div>
+        <div class="hero-meta">
+          <span class="pill" id="roleChip">Desktop</span>
+          <span class="pill pill-quiet" id="connChip">Offline</span>
+        </div>
+      </header>
+
+      <section class="grid">
+        <section class="panel panel-main">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Messages</div>
+              <div class="panel-subtitle">Phone messages show up here and are copied to the clipboard on arrival.</div>
+            </div>
+          </div>
+          <div class="messages" id="messages" aria-live="polite" aria-relevant="additions"></div>
+        </section>
+
+        <aside class="panel panel-side" id="pairingPanel">
+          <div class="panel-head">
+            <div>
+              <div class="panel-title">Pair your phone</div>
+              <div class="panel-subtitle">Scan once, then ClipMsg stays paired in your browser.</div>
+            </div>
+          </div>
+
+          <div class="qr-box">
+            <img id="qrImage" alt="Pairing QR code" hidden />
+            <div class="qr-fallback" id="qrFallback">Open the desktop page on your PC to load the pairing QR code.</div>
+          </div>
+
+          <div class="pairing-info">
+            <label class="pair-label" for="pairLink">Phone link</label>
+            <div class="pair-row">
+              <input id="pairLink" class="pair-input" readonly value="" />
+              <button id="copyLink" class="action action-alt" type="button">Copy</button>
+            </div>
+
+            <label class="pair-label" for="pairToken">Manual token</label>
+            <div class="pair-row">
+              <input id="pairToken" class="pair-input mono" readonly value="" />
+              <button id="copyToken" class="action action-alt" type="button">Copy</button>
+            </div>
+
+            <div class="hint" id="hintBox">
+              Open the phone link manually if scanning is not convenient. The QR code is the fastest path because it opens
+              the phone page and pairs it automatically.
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <footer class="composer">
+        <textarea
+          id="text"
+          class="composer-input"
+          rows="1"
+          placeholder="Type a message. On desktop, you can also send text back to the phone."
+        ></textarea>
+        <button id="send" class="action" type="button">Send</button>
+      </footer>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <dialog class="modal" id="tokenModal">
+      <form method="dialog" class="modal-card">
+        <div class="modal-title">Pair this device</div>
+        <p class="modal-copy">
+          Scan the QR code on the desktop page, or paste the manual token here if you opened the phone page directly.
+        </p>
+        <input id="tokenInput" class="modal-input mono" autocomplete="one-time-code" maxlength="256" />
+        <div class="modal-actions">
+          <button class="action action-alt" value="cancel" type="submit">Cancel</button>
+          <button class="action" id="tokenOk" value="ok" type="submit">Pair</button>
+        </div>
+      </form>
+    </dialog>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
